@@ -1,4 +1,4 @@
 tower
 =====
 
-Gather performance metrics of your AJAX applications
+Gather performance metrics on your AJAX applications.
