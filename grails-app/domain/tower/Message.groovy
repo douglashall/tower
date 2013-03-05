@@ -2,6 +2,7 @@ package tower
 
 class Message {
 
+	String host
 	String source
 	String url
 	String params

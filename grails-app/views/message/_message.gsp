@@ -1,2 +1,2 @@
-$('.tower-active').html('${grailsApplication.config.tower.active}');
+$('.tower-active').html('${config.enabled}');
 $('#message-${messageId}').remove();

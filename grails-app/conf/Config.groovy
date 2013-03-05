@@ -62,11 +62,11 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-		grails.serverURL = "http://localhost:8080/tower"
+		grails.serverURL = "http://localhost:8090/tower"
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://hccrc.catalyst.harvard.edu/tower"
+        grails.serverURL = "https://hccrc.catalyst.harvard.edu/tower"
     }
 }
 
@@ -82,6 +82,7 @@ log4j = {
 	
 	appenders {
 	    null name:'stacktrace'
+		console name:'stdout'
 	}
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers

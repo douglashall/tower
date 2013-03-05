@@ -12,17 +12,19 @@ $(document).ready(function(){
         var now = new Date();
         xhr.towerMessage.responseReceived = now.getTime();
         xhr.towerMessage.url = url;
+        xhr.towerMessage.host = window.location.host;
         xhr.towerMessage.source = window.location.href;
         xhr.towerMessage.status = status;
         $('.tower-scripts').append('<div id="message-' + xhr.towerMessage.messageId + '"><script src="${grailsApplication.config.grails.serverURL}/message/create?' + $.param(xhr.towerMessage) + '"></script></div>');
     };
     
-    $('body').append('<div class="tower-active" style="display:none;">${grailsApplication.config.tower.active}</div>');
+    $('body').append('<div class="tower-active" style="display:none;">false</div>');
     $('body').append('<div class="tower-scripts" style="display:none;"></div>');
+    $('.tower-scripts').append('<div id="message-' + messageId + '"><script src="${grailsApplication.config.grails.serverURL}/message/status?host=' + window.location.host + '&messageId=' + messageId++ + '"></script></div>');
     $(document).keydown(function(event){
         if (event.which == 84 && event.ctrlKey) {
             if (window.confirm('Monitoring is ' + ($('.tower-active').html() == 'true' ? 'enabled. Disable?' : 'disabled. Enable?'))) {
-                $('.tower-scripts').append('<div id="message-' + messageId + '"><script src="${grailsApplication.config.grails.serverURL}/message/toggle?messageId=' + messageId++ + '"></script></div>');
+                $('.tower-scripts').append('<div id="message-' + messageId + '"><script src="${grailsApplication.config.grails.serverURL}/message/toggle?host=' + window.location.host + '&messageId=' + messageId++ + '"></script></div>');
             }
         }
     });
