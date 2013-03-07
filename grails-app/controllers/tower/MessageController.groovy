@@ -4,6 +4,25 @@ import grails.converters.JSON
 import grails.converters.XML
 
 class MessageController {
+	
+	def index() {
+		def now = new Date()
+		def messages = Message.findAllByDateCreatedGreaterThan(now - 1).sort{a,b -> b.getDuration().compareTo(a.getDuration())}
+		def mapByHost = messages.inject([:]) { map, message ->
+			def messagesByHost = map[message.host]
+			if (!messagesByHost) {
+				messagesByHost = []
+			}
+			map[message.host] = messagesByHost << message
+			return map
+		}
+		// Limit the result set to the top 20 longest requests
+		mapByHost.each {
+			def limit = it.value.size() > 20 ? 19 : (it.value.size - 1)
+			it.value = it.value[0..limit]
+		}
+		[messages: mapByHost]
+	}
 
     def list() {
         def messages = Message.list();
